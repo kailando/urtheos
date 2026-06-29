@@ -1,5 +1,6 @@
 # You're the OS!
 
+ORIGINAL: [https://www.github.com/plbrault/youre-the-os](https://www.github.com/plbrault/youre-the-os)
 This is a game where you are the operating system of a computer.
 As such, you have to manage processes, memory and I/O events.
 Make sure not to leave processes idling for too long, or the user will get really impatient and reboot you!
