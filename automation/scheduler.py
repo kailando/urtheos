@@ -130,27 +130,16 @@ class RealScheduler(Scheduler):
                 self.move_process(pid)
                 procs_headcanon[pid].has_cpu = True
 
-            for pididx, page in self.pages.items():
-                if page.waiting_to_swap or page.swap_in_progress:
-                    continue
-                if not page.on_disk:
-                    continue
-                pid, idx = pididx
-                proc = procs_headcanon[pid]
-                if proc.has_cpu:
-                    continue
-                self.move_page(pid, idx)
-            if len(self.pages) >= num_ram_pages:
-                for pididx, page in self.pages.items():
+            # Handle pages
+            for pid, proc in procs_headcanon.items():
+                for page in proc.pages:
                     if page.waiting_to_swap or page.swap_in_progress:
                         continue
-                    if not page.on_disk:
-                        continue
-                    pid, idx = pididx
-                    proc = procs_headcanon[pid]
-                    if not proc.has_cpu:
-                        continue
-                    self.move_page(pid, idx)
+                    if proc.has_cpu and page.on_disk:
+                        self.move_page(pid, page.idx)
+                    elif (not proc.has_cpu) and (not page.on_disk):
+                        self.move_page(pid, page.idx)
+            
 
 
 # The game expects a callable named `scheduler`
