@@ -20,10 +20,10 @@ MAX_PAGES_PER_PROCESS = 4
 
 SWAP_DELAY_NAMES_TO_MS = {
     'None': 0,
-    'Low': 100,
-    'Medium': 250,
-    'High': 500,
-    'Higher': 1000
+    'Low': ONE_SECOND / 10,
+    'Medium': ONE_SECOND / 4,
+    'High': ONE_SECOND / 2,
+    'Higher': ONE_SECOND
 }
 
 SWAP_DELAY_MS_TO_NAMES = {value: key for key, value in SWAP_DELAY_NAMES_TO_MS.items()}
